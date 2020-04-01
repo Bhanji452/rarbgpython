@@ -19,6 +19,9 @@ TV_DATA_TEMP = {"Overview":"","Poster":"","Backdrop":"","next_ep":"","last_ep":"
 TV_TOR_TEMP = {"Title:":"","Filename":"","Magnet":"","Category":"","Size":"","Episode":"","Season":"","Seeders":""}
 TORRENTS = []
 
+client = rarbgapi.RarbgAPI()
+client.list(limit=100)
+
 
 def humanbytes(B):
    'Return the given bytes as a human friendly KB, MB, GB, or TB string'
@@ -102,10 +105,9 @@ def movieDBt(identifier):
 	
 
 def searchRAR(contentType,contentName):
-	client = rarbgapi.RarbgAPI()
-	client.list(limit=50)
 	if contentType == 1:
-		categoryType = raw_input("Select a Category (0) - All, (1) - HD , (2) - UHD : ")
+		categoryType = input("Select a Category (0) - All, (1) - HD , (2) - UHD : ")
+		print("\n")		
 		if categoryType == "0":
 			contentCategory = 0
 		elif categoryType == "1":
@@ -114,7 +116,7 @@ def searchRAR(contentType,contentName):
 			contentCategory = TV_UHD
 		else:
 			contentType = 0 
-		print("\n\n")
+		print("\n")
 		for torrent in client.search(search_string=contentName, category=contentCategory, format_="json_extended", sort="seeders"):
 			tvTorData = copy.deepcopy(TV_TOR_TEMP)
 			torrentName = torrent.filename
@@ -142,7 +144,8 @@ def searchRAR(contentType,contentName):
 			TORRENTS.append(dataObject)
 			
 	elif contentType == 2:
-		categoryType = raw_input("Select a Category (0) - All, (1) - 720p , (2) - 1080p, (3) - 4K : ")
+		categoryType = input("Select a Category (0) - All, (1) - 720p , (2) - 1080p, (3) - 4K : ")
+		print("\n")
 		if categoryType == "0":
 			contentCategory = 0
 		elif categoryType == "1":
@@ -184,7 +187,7 @@ def searchRAR(contentType,contentName):
 def main():
 	torrentNum = 0
 	tOf = int(input("TV (1) or Film (2) ? : "))
-	search = raw_input("Please enter the name of the Content : ")
+	search = input("Please enter the name of the Content : ")
 	searchRAR(tOf,search)
 	table = []
 	if tOf == 2:
