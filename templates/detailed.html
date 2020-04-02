@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bhanji - RARBG</title>
+      <style>
+          tr {
+          height: 60px
+          }
+          .container{
+          max-width:90%;
+          display:block;
+          position:relative
+          }
+          .back{
+          border-radius:4px;
+          background-color:#3860BB;
+          color:white;
+          outline:0px;
+          transition-duration:1s;
+          }
+          .back:hover{
+          background-color:#262626
+          }
+      </style>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  </head>
+  <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+   <a class="navbar-brand" href="#">Bhanji&nbsp;</a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+  </button>
+       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+             <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+             </li>
+          </ul>
+</div>
+  </nav>
+
+  <div class="jumbotron jumbotron-fluid text-center">
+    <h1 class="display-4"><img src="https://dyncdn.me/static/20/img/logo_dark_nodomain2_optimized.png" border="0" alt="rarbg torrents" style="margin: -10px 0 0 0;"> by Bhanji&nbsp; &nbsp;</h1>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <div class="container" style="max-width:90%">
+        <!--<img src="{{content[0].get('Backdrop')}}" style="width:100%;z-index:2;position:absolute;display:inline-block;height:250px"> -->
+        <img src="{{content[0].get('Poster')}}" style="width:20%;position:relative;display:inline-block;-webkit-box-shadow: 10px 10px 5px 2px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 5px 2px rgba(0,0,0,0.75);
+box-shadow: 0px 5px 15px 5px rgba(0,0,0,0.75);" >
+        <table style="width:70%;display:inline-block;padding-left:30px;position:absolute;">
+            <tr>
+                <td><h4>Title :</h4> {{content[0].get('Title')}}   <a href="{{content[1].get('Magnet')}}"><img src="https://dyncdn.me/static/20/img/magnet.gif"border="0"></a></td>
+            </tr>
+            <tr>
+                <td><h4>Overview :</h4> {{content[0].get('Overview')}}</td>
+            </tr>
+            <tr>
+                <td><h4>Release :</h4> {{content[0].get('Release')}}</td>
+            </tr>
+            <tr>
+                <td><h4>Budget :</h4> ${{content[0].get('Budget')}}</td>
+            </tr>
+            <tr>
+                <td><h4>Runtime :</h4> {{content[0].get('Runtime')}} minutes</td>
+
+            <tr>
+            <td><h4>Filename :</h4> {{content[1].get('Filename')}}</td>
+            </tr>
+            <tr>
+                <td><h4>Seeders :</h4> {{content[1].get('Seeders')}}</td>
+            </tr>
+            <tr>
+                <td><h4>Size :</h4> {{content[1].get('Size')}}</td>
+            </tr>
+            <tr>
+                <td><button class="back" onclick="window.location.href = '/results';">Back to Search Results</button>   <button class="back" onclick="window.location.href = '/';">New Search</button></td>
+            </tr>
+        </table>
+	  </div>
+    <script src="../../../Documents/js/jquery-3.4.1.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!--<script src="js/popper.min.js"></script>
+    <script src="js/bootstrap-4.4.1.js"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>-->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+</body>
+</html>
