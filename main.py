@@ -7,6 +7,7 @@ from tabulate import tabulate
 from flask import Flask, render_template,request,redirect, session
 import random
 import string
+from waitress import serve
 import uuid
 import threading
 tmdb.API_KEY = 'c4169d47ae1ad053b921a9df127f69bc'
@@ -17,33 +18,23 @@ app.config["SESSION_TYPE"] = "filesystem"
 
 
 chonk = ""
+TORRENTS = []
 
 @app.route("/", methods=["GET","POST"])
 def home():
-    dokey = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(32)])
-    app.session_cookie_name = dokey
     #main()
     if request.method == "POST":
-        print("SESSION: ")
-        session.clear()
-        print(dokey)
-        print("CLEARED SESSION: ")
         #app.session_interface.make_null_session(app)
-        SESSION = session._get_current_object()
-        session.pop("Category",None)
-        session.pop("TORRENTS",None)
         search = request.form["search"]
         category = request.form["category"]
-        session["Category"] = ""
         session["Category"] = category
-        chonk = copy.deepcopy(category)
-        session["TORRENTS"] = []
-        session["TORRENTS"].clear()
-        session["TORRENTS"] = []
+        TORRENTS = []
+        TORRENTS.clear()
+        TORRENTS = []
         tic = time.perf_counter()
         if category == "Movie":
             main(2,search)
-            print("BEFORE REDIRECT: ",session["TORRENTS"])
+            print("BEFORE REDIRECT: ",TORRENTS)
             return redirect("/results")
         else:
             main(1,search)
@@ -54,24 +45,23 @@ def home():
 
     elif request.method == "GET":
         resp = app.make_response(render_template('index.html'))
-        resp.set_cookie(dokey, "")
         return resp
 
 
 @app.route("/results")
 def results():
-    if session["TORRENTS"] == []:
+    if TORRENTS == []:
         return redirect("/")
     print(session["Category"])
-    return render_template("results.html", content=session["TORRENTS"])
+    return render_template("results.html", content=TORRENTS)
 
 
 @app.route("/torrent0")
 def detailed():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][0]
+        data = TORRENTS[0]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -82,10 +72,10 @@ def detailed():
 
 @app.route("/torrent1")
 def detailed1():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][1]
+        data = TORRENTS[1]
     except:
         return redirect("/")
 
@@ -96,10 +86,10 @@ def detailed1():
 
 @app.route("/torrent2")
 def detailed2():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][2]
+        data = TORRENTS[2]
     except:
         return redirect("/")
 
@@ -110,10 +100,10 @@ def detailed2():
 
 @app.route("/torrent3")
 def detailed3():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][3]
+        data = TORRENTS[3]
     except:
         return redirect("/")
 
@@ -124,10 +114,10 @@ def detailed3():
 
 @app.route("/torrent4")
 def detailed4():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][4]
+        data = TORRENTS[4]
     except:
         return redirect("/")
 
@@ -138,10 +128,10 @@ def detailed4():
 
 @app.route("/torrent5")
 def detailed5():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][5]
+        data = TORRENTS[5]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -151,10 +141,10 @@ def detailed5():
 
 @app.route("/torrent6")
 def detailed6():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][6]
+        data = TORRENTS[6]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -164,10 +154,10 @@ def detailed6():
 
 @app.route("/torrent7")
 def detailed7():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][7]
+        data = TORRENTS[7]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -177,10 +167,10 @@ def detailed7():
 
 @app.route("/torrent8")
 def detailed8():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][8]
+        data = TORRENTS[8]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -190,10 +180,10 @@ def detailed8():
 
 @app.route("/torrent9")
 def detailed9():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][9]
+        data = TORRENTS[9]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -203,10 +193,10 @@ def detailed9():
 
 @app.route("/torrent10")
 def detailed10():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][10]
+        data = TORRENTS[10]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -216,10 +206,10 @@ def detailed10():
 
 @app.route("/torrent11")
 def detailed11():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][11]
+        data = TORRENTS[11]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -229,10 +219,10 @@ def detailed11():
 
 @app.route("/torrent12")
 def detailed12():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][12]
+        data = TORRENTS[12]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -242,10 +232,10 @@ def detailed12():
 
 @app.route("/torrent13")
 def detailed13():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][13]
+        data = TORRENTS[13]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -255,10 +245,10 @@ def detailed13():
 
 @app.route("/torrent14")
 def detailed14():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][14]
+        data = TORRENTS[14]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -268,10 +258,10 @@ def detailed14():
 
 @app.route("/torrent15")
 def detailed15():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][15]
+        data = TORRENTS[15]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -281,10 +271,10 @@ def detailed15():
 
 @app.route("/torrent16")
 def detailed16():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][16]
+        data = TORRENTS[16]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -294,10 +284,10 @@ def detailed16():
 
 @app.route("/torrent17")
 def detailed17():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][17]
+        data = TORRENTS[17]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -307,10 +297,10 @@ def detailed17():
 
 @app.route("/torrent18")
 def detailed18():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][18]
+        data = TORRENTS[18]
     except:
         return redirect("/")
 
@@ -321,10 +311,10 @@ def detailed18():
 
 @app.route("/torrent19")
 def detailed19():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][19]
+        data = TORRENTS[19]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -334,10 +324,10 @@ def detailed19():
 
 @app.route("/torrent20")
 def detailed20():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][20]
+        data = TORRENTS[20]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -347,10 +337,10 @@ def detailed20():
 
 @app.route("/torrent21")
 def detailed21():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][21]
+        data = TORRENTS[21]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -360,10 +350,10 @@ def detailed21():
 
 @app.route("/torrent22")
 def detailed22():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][22]
+        data = TORRENTS[22]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -373,10 +363,10 @@ def detailed22():
 
 @app.route("/torrent23")
 def detailed23():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][23]
+        data = TORRENTS[23]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -386,10 +376,10 @@ def detailed23():
 
 @app.route("/torrent24")
 def detailed24():
-    if session["TORRENTS"] ==  []:
+    if TORRENTS ==  []:
         return redirect("/")
     try:
-        data = session["TORRENTS"][24]
+        data = TORRENTS[24]
     except:
         return redirect("/")
     if session["Category"] == "TV":
@@ -555,8 +545,8 @@ def searchRAR(contentType, contentName):
             tvTorData["Seeders"] = torrentSeeders
             dataTV["Title"] = torrentTitle
             dataObject = [dataTV, tvTorData]
-            session["TORRENTS"].append(dataObject)
-            print(session["TORRENTS"])
+            TORRENTS.append(dataObject)
+            print(TORRENTS)
 
     elif contentType == 2:
         categoryType = "0"
@@ -591,8 +581,8 @@ def searchRAR(contentType, contentName):
             torData["Seeders"] = torrentSeeders
             torData["Size"] = torrentSize
             dataObject = [dataP1, torData]
-            session["TORRENTS"].append(dataObject)
-            print(session["TORRENTS"])
+            TORRENTS.append(dataObject)
+            print(TORRENTS)
     else:
         print("The Content type you have selected is unavailable!")
 
@@ -606,14 +596,17 @@ def main(tOf,search):
     #tOf = int(input("TV (1) or Film (2) ? : "))
     #search = input("Please enter the name of the Content : ")
     tic = time.perf_counter()
+    if TORRENTS != []:
+        TORRENTS.clear()
     searchRAR(tOf, search)
-    print("AFTER SEARCH",session["TORRENTS"])
+    print("VALUES",TORRENTS)
+    print("AFTER SEARCH",TORRENTS)
     toc = time.perf_counter()
     print("SEARCH TIME", toc-tic)
     table = []
     if tOf == 2:
-        for each in session["TORRENTS"]:
-            tor = session["TORRENTS"][torrentNum]
+        for each in TORRENTS:
+            tor = TORRENTS[torrentNum]
             movieData = tor[0]
             torrentData = tor[1]
             title = str(movieData.get("Title"))
@@ -626,8 +619,8 @@ def main(tOf,search):
             torrentNum = torrentNum + 1
         print(tabulate(table, headers=["Title", "Filename", "Filesize", "Seeders"]))
     elif tOf == 1:
-        for each in session["TORRENTS"]:
-            tor = session["TORRENTS"][torrentNum]
+        for each in TORRENTS:
+            tor = TORRENTS[torrentNum]
             tvData = tor[0]
             torrentData = tor[1]
             title = str(torrentData.get("Title"))
@@ -642,4 +635,5 @@ def main(tOf,search):
 
 if __name__ == "__main__":
     #main()
-    app.run(host="0.0.0.0",port="80")
+    #app.run(host="0.0.0.0",port="80")
+    serve(app, host="0.0.0.0",port="80")
